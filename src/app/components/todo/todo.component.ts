@@ -33,6 +33,27 @@ export class TodoComponent implements OnInit {
     });
   }
 
+  setCompleted(i: number) {
+    const task: ITask = {
+      description: this.inProgress[i].description,
+      done: true,
+    };
+    this.done.push(task);
+    this.inProgress.splice(i, 1);
+  }
+
+  deleteTask(i: number) {
+    this.tasks.splice(i, 1);
+  }
+
+  deleteInProgressTask(i: number) {
+    this.inProgress.splice(i, 1);
+  }
+
+  deleteCompletedTask(i: number) {
+    this.done.splice(i, 1);
+  }
+
   drop(event: CdkDragDrop<ITask[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(
