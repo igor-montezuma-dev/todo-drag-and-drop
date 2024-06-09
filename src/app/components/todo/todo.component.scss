@@ -61,8 +61,23 @@
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
-.box{
+.box {
   display: grid;
   grid-auto-flow: column;
   grid-column-gap: 10px;
+}
+
+.head-title {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  background-color: rgb(228, 222, 222);
+  color: #777272;
+  font-size: 1.5rem;
+  font-weight: 600;
+  border-radius: 4px;
+
+  span{
+    font-weight: normal;
+  }
 }

@@ -14,7 +14,7 @@
               <mat-icon matSuffix>edit</mat-icon>
             </mat-form-field>
             <button
-            *ngIf="!isEditEnabled"
+              *ngIf="!isEditEnabled"
               mat-raised-button
               color="primary"
               [disabled]="todoForm.invalid"
@@ -35,12 +35,15 @@
         </mat-card>
       </div>
     </div>
-    <div class="col-md-9">
+    <div class="col-md-9 mt-3">
       <div cdkDropListGroup>
         <div class="row">
           <div class="col-md-4">
             <div class="example-container">
-              <h2>Atividades</h2>
+              <h2 class="head-title">
+                Atividades
+                <span *ngIf="tasks.length > 0">- {{ tasks.length }}</span>
+              </h2>
 
               <div
                 cdkDropList
@@ -76,7 +79,12 @@
           </div>
           <div class="col-md-4">
             <div class="example-container">
-              <h2>Em Andamento</h2>
+              <h2 class="head-title">
+                Em Andamento
+                <span *ngIf="inProgress.length > 0"
+                  >-{{ inProgress.length }}</span
+                >
+              </h2>
 
               <div
                 cdkDropList
@@ -100,10 +108,10 @@
                     </button>
                     <button
                       mat-icon-button
-                      color="primary"
+                      color="accent"
                       (click)="setCompleted(i)"
                     >
-                      <mat-icon>check</mat-icon>
+                      <mat-icon>done</mat-icon>
                     </button>
                   </div>
                 </div>
@@ -112,7 +120,10 @@
           </div>
           <div class="col-md-4">
             <div class="example-container">
-              <h2>Concluído</h2>
+              <h2 class="head-title">
+                Concluído
+                <span *ngIf="done.length > 0">-{{ done.length }}</span>
+              </h2>
 
               <div
                 cdkDropList
@@ -135,6 +146,13 @@
                       <mat-icon>delete</mat-icon>
                     </button>
                   </div>
+                  <button
+                    mat-icon-button
+                    color="accent"
+                    (click)="setCompleted(i)"
+                  >
+                    <mat-icon>check_circle</mat-icon>
+                  </button>
                 </div>
               </div>
             </div>
