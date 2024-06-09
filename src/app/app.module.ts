@@ -10,6 +10,7 @@ import { TodoComponent } from './components/todo/todo.component';
 import { SharedModule } from './shared/shared.module';
 
 // Angular Material
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -30,6 +31,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatIconModule,
     MatInputModule,
     MatButtonModule,
+    DragDropModule,
     SharedModule,
     RouterModule,
     ReactiveFormsModule,
