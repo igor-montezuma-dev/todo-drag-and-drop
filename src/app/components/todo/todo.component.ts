@@ -17,7 +17,7 @@ export class TodoComponent implements OnInit {
   tasks: ITask[] = [];
   inProgress: ITask[] = [];
   done: ITask[] = [];
-  updateItem!: any;
+  updateItem!: number;
   isEditEnabled: boolean = false;
 
   constructor(private fb: FormBuilder) {}
@@ -26,6 +26,11 @@ export class TodoComponent implements OnInit {
     this.todoForm = this.fb.group({
       activity_name: ['', [Validators.required]],
     });
+
+    const storedTasks = localStorage.getItem('tasks');
+    if (storedTasks) {
+      this.tasks = JSON.parse(storedTasks);
+    }
   }
 
   addTask() {
@@ -33,6 +38,7 @@ export class TodoComponent implements OnInit {
       description: this.todoForm.value.activity_name,
       done: false,
     });
+    localStorage.setItem('tasks', JSON.stringify(this.tasks));
     this.todoForm.reset();
   }
 
@@ -40,12 +46,12 @@ export class TodoComponent implements OnInit {
     this.todoForm.controls['activity_name'].setValue(item.description);
     this.updateItem = i;
     this.isEditEnabled = true;
-
   }
 
-  UpdateTask() {
+  updateTask() {
     this.tasks[this.updateItem].description = this.todoForm.value.activity_name;
     this.isEditEnabled = false;
+    localStorage.setItem('tasks', JSON.stringify(this.tasks));
     this.todoForm.reset();
   }
 
@@ -56,18 +62,24 @@ export class TodoComponent implements OnInit {
     };
     this.done.push(task);
     this.inProgress.splice(i, 1);
+    localStorage.setItem('tasks', JSON.stringify(this.tasks));
+    localStorage.setItem('inProgress', JSON.stringify(this.inProgress));
+    localStorage.setItem('done', JSON.stringify(this.done));
   }
 
   deleteTask(i: number) {
     this.tasks.splice(i, 1);
+    localStorage.setItem('tasks', JSON.stringify(this.tasks));
   }
 
   deleteInProgressTask(i: number) {
     this.inProgress.splice(i, 1);
+    localStorage.setItem('inProgress', JSON.stringify(this.inProgress));
   }
 
   deleteCompletedTask(i: number) {
     this.done.splice(i, 1);
+    localStorage.setItem('done', JSON.stringify(this.done));
   }
 
   drop(event: CdkDragDrop<ITask[]>) {
@@ -85,5 +97,8 @@ export class TodoComponent implements OnInit {
         event.currentIndex
       );
     }
+    localStorage.setItem('tasks', JSON.stringify(this.tasks));
+    localStorage.setItem('inProgress', JSON.stringify(this.inProgress));
+    localStorage.setItem('done', JSON.stringify(this.done));
   }
 }

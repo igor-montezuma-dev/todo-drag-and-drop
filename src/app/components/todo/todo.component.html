@@ -27,7 +27,7 @@
               mat-raised-button
               color="primary"
               [disabled]="todoForm.invalid"
-              (click)="UpdateTask()"
+              (click)="updateTask()"
             >
               Atualizar
             </button>
@@ -145,14 +145,14 @@
                     >
                       <mat-icon>delete</mat-icon>
                     </button>
+                    <button
+                      mat-icon-button
+                      color="accent"
+                      (click)="setCompleted(i)"
+                    >
+                      <mat-icon>check_circle</mat-icon>
+                    </button>
                   </div>
-                  <button
-                    mat-icon-button
-                    color="accent"
-                    (click)="setCompleted(i)"
-                  >
-                    <mat-icon>check_circle</mat-icon>
-                  </button>
                 </div>
               </div>
             </div>
