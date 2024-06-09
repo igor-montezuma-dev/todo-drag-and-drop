@@ -13,11 +13,75 @@
               />
               <mat-icon matSuffix>edit</mat-icon>
             </mat-form-field>
-            <button mat-raised-button color="primary">Adicionar</button>
+            <button
+              mat-raised-button
+              color="primary"
+              [disabled]="todoForm.invalid"
+              (click)="addTask()"
+            >
+              Adicionar
+            </button>
           </form>
         </mat-card>
       </div>
     </div>
-    <div class="col-md-9"></div>
+    <div class="col-md-9">
+      <div cdkDropListGroup>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="example-container">
+              <h2>Atividades</h2>
+
+              <div
+                cdkDropList
+                [cdkDropListData]="tasks"
+                class="example-list"
+                (cdkDropListDropped)="drop($event)"
+              >
+                <div class="example-box" *ngFor="let item of tasks" cdkDrag>
+                  {{ item.description }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="example-container">
+              <h2>Em Andamento</h2>
+
+              <div
+                cdkDropList
+                [cdkDropListData]="inProgress"
+                class="example-list"
+                (cdkDropListDropped)="drop($event)"
+              >
+                <div
+                  class="example-box"
+                  *ngFor="let item of inProgress"
+                  cdkDrag
+                >
+                  {{ item.description }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="example-container">
+              <h2>Concluído</h2>
+
+              <div
+                cdkDropList
+                [cdkDropListData]="done"
+                class="example-list"
+                (cdkDropListDropped)="drop($event)"
+              >
+                <div class="example-box" *ngFor="let item of done" cdkDrag>
+                  {{ item.description }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
