@@ -14,12 +14,22 @@
               <mat-icon matSuffix>edit</mat-icon>
             </mat-form-field>
             <button
+            *ngIf="!isEditEnabled"
               mat-raised-button
               color="primary"
               [disabled]="todoForm.invalid"
               (click)="addTask()"
             >
               Adicionar
+            </button>
+            <button
+              *ngIf="isEditEnabled"
+              mat-raised-button
+              color="primary"
+              [disabled]="todoForm.invalid"
+              (click)="UpdateTask()"
+            >
+              Atualizar
             </button>
           </form>
         </mat-card>
@@ -55,7 +65,7 @@
                     <button
                       mat-icon-button
                       color="primary"
-                      (click)="deleteTask(i)"
+                      (click)="onEdit(item, i)"
                     >
                       <mat-icon>edit</mat-icon>
                     </button>

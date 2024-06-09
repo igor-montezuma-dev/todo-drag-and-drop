@@ -17,6 +17,8 @@ export class TodoComponent implements OnInit {
   tasks: ITask[] = [];
   inProgress: ITask[] = [];
   done: ITask[] = [];
+  updateItem!: any;
+  isEditEnabled: boolean = false;
 
   constructor(private fb: FormBuilder) {}
 
@@ -31,6 +33,20 @@ export class TodoComponent implements OnInit {
       description: this.todoForm.value.activity_name,
       done: false,
     });
+    this.todoForm.reset();
+  }
+
+  onEdit(item: ITask, i: number) {
+    this.todoForm.controls['activity_name'].setValue(item.description);
+    this.updateItem = i;
+    this.isEditEnabled = true;
+
+  }
+
+  UpdateTask() {
+    this.tasks[this.updateItem].description = this.todoForm.value.activity_name;
+    this.isEditEnabled = false;
+    this.todoForm.reset();
   }
 
   setCompleted(i: number) {
