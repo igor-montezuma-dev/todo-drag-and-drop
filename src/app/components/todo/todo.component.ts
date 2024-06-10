@@ -28,8 +28,17 @@ export class TodoComponent implements OnInit {
     });
 
     const storedTasks = localStorage.getItem('tasks');
+    const storedInProgress = localStorage.getItem('inProgress');
+    const storedDone = localStorage.getItem('done');
+
     if (storedTasks) {
       this.tasks = JSON.parse(storedTasks);
+    }
+    if (storedInProgress) {
+      this.inProgress = JSON.parse(storedInProgress);
+    }
+    if (storedDone) {
+      this.done = JSON.parse(storedDone);
     }
   }
 
@@ -38,7 +47,7 @@ export class TodoComponent implements OnInit {
       description: this.todoForm.value.activity_name,
       done: false,
     });
-    localStorage.setItem('tasks', JSON.stringify(this.tasks));
+    this.saveToLocalStorage();
     this.todoForm.reset();
   }
 
@@ -51,7 +60,7 @@ export class TodoComponent implements OnInit {
   updateTask() {
     this.tasks[this.updateItem].description = this.todoForm.value.activity_name;
     this.isEditEnabled = false;
-    localStorage.setItem('tasks', JSON.stringify(this.tasks));
+    this.saveToLocalStorage();
     this.todoForm.reset();
   }
 
@@ -62,24 +71,22 @@ export class TodoComponent implements OnInit {
     };
     this.done.push(task);
     this.inProgress.splice(i, 1);
-    localStorage.setItem('tasks', JSON.stringify(this.tasks));
-    localStorage.setItem('inProgress', JSON.stringify(this.inProgress));
-    localStorage.setItem('done', JSON.stringify(this.done));
+    this.saveToLocalStorage();
   }
 
   deleteTask(i: number) {
     this.tasks.splice(i, 1);
-    localStorage.setItem('tasks', JSON.stringify(this.tasks));
+    this.saveToLocalStorage();
   }
 
   deleteInProgressTask(i: number) {
     this.inProgress.splice(i, 1);
-    localStorage.setItem('inProgress', JSON.stringify(this.inProgress));
+    this.saveToLocalStorage();
   }
 
   deleteCompletedTask(i: number) {
     this.done.splice(i, 1);
-    localStorage.setItem('done', JSON.stringify(this.done));
+    this.saveToLocalStorage();
   }
 
   drop(event: CdkDragDrop<ITask[]>) {
@@ -97,6 +104,10 @@ export class TodoComponent implements OnInit {
         event.currentIndex
       );
     }
+    this.saveToLocalStorage();
+  }
+
+  saveToLocalStorage() {
     localStorage.setItem('tasks', JSON.stringify(this.tasks));
     localStorage.setItem('inProgress', JSON.stringify(this.inProgress));
     localStorage.setItem('done', JSON.stringify(this.done));
